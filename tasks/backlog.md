@@ -23,17 +23,18 @@ This backlog tracks planning and implementation work for Nola. Every task should
 
 | ID | Title | Phase | Priority | Status | Acceptance criteria | Dependency |
 | --- | --- | --- | --- | --- | --- | --- |
-| BL-001 | Upgrade Codex execution system for Nola | Planning | P0 | In Progress | Nola-specific docs, tasks, and six requested Skills exist; no business code is created. | None |
-| BL-002 | Define desktop MVP screen set | Phase 1 | P0 | Ready | Today, tasks, inbox, calendar, reminders, and random start flows are described. | BL-001 |
+| BL-001 | Upgrade Codex execution system for Nola | Planning | P0 | Done | Nola-specific docs, tasks, and six requested Skills exist; no business code is created. | None |
+| BL-002 | Define desktop MVP screen set | Phase 1 | P0 | Done | Today, tasks, inbox, calendar, reminders, and random start flows are described in `docs/prd.md` and summarized in `docs/roadmap.md`. | BL-001 |
 | BL-003 | Define task and inbox domain model | Phase 1 | P0 | Ready | Task, project, inbox item, reminder, and sync-ready fields are documented. | BL-001 |
-| BL-004 | Plan monorepo implementation | Phase 1 | P0 | Idea | Future apps and packages layout is approved before scaffolding. | BL-002 |
+| BL-004 | Plan monorepo implementation | Phase 1 | P0 | Ready | Future apps and packages layout is approved before scaffolding. | BL-002 |
 | BL-005 | Plan desktop reminder adapter | Phase 1 | P1 | Idea | Shared reminder rule model and desktop adapter responsibilities are defined. | BL-003 |
-| BL-006 | Plan random start experience | Phase 1 | P1 | Idea | Selection rules, user copy, and low-energy behavior are documented. | BL-002 |
-| BL-007 | Plan ADHD-friendly design tokens | Phase 1 | P1 | Idea | Color, typography, spacing, motion, and accessibility directions are documented. | BL-002 |
+| BL-006 | Plan random start experience | Phase 1 | P1 | Ready | Selection rules, user copy, and low-energy behavior are documented. | BL-002 |
+| BL-007 | Plan ADHD-friendly design tokens | Phase 1 | P1 | Ready | Color, typography, spacing, motion, and accessibility directions are documented. | BL-002 |
 | BL-008 | Prepare desktop MVP implementation plan | Phase 1 | P0 | Idea | A task-by-task implementation plan exists for scaffolding and MVP features. | BL-002, BL-003 |
 | BL-009 | Plan mobile MVP reuse strategy | Phase 2 | P2 | Idea | Mobile reuse boundaries for core, types, schema, and tokens are documented. | Desktop MVP foundation |
 | BL-010 | Plan future cloud sync | Phase 3 | P2 | Idea | Supabase vs custom backend decision criteria and sync fields are documented. | Local schema validated |
 | BL-011 | Plan future AI decomposition module | Later | P3 | Idea | `packages/ai` interface expectations are documented without implementation. | MVP task model |
+| BL-012 | Scaffold desktop MVP code foundation | Phase 1 | P0 | In Progress | Monorepo configs, shared packages, core tests, and desktop UI shell exist; dependency install and build verification are completed or blockers are recorded. | BL-004, BL-008 |
 
 ## Intake Template
 

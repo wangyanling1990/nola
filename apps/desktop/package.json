@@ -1,0 +1,27 @@
+{
+  "name": "@nola/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "typecheck": "tsc -p tsconfig.json",
+    "electron:dev": "electron ."
+  },
+  "dependencies": {
+    "@nola/core": "file:../../packages/core",
+    "@nola/design-tokens": "file:../../packages/design-tokens",
+    "@nola/types": "file:../../packages/types",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.1",
+    "vite": "^7.2.4",
+    "typescript": "^5.9.3",
+    "electron": "^39.2.7"
+  }
+}

@@ -23,17 +23,18 @@
 
 | ID | 标题 | 阶段 | 优先级 | 状态 | 验收标准 | 依赖 |
 | --- | --- | --- | --- | --- | --- | --- |
-| BL-001 | 为 Nola 升级 Codex 执行体系 | 规划 | P0 | In Progress | Nola 专属 docs、tasks 和 6 个指定 Skills 存在；没有创建业务代码。 | 无 |
-| BL-002 | 定义桌面端 MVP 页面集合 | 第一阶段 | P0 | Ready | 已描述 Today、任务、灵感箱、日历、提醒、随机启动等流程。 | BL-001 |
+| BL-001 | 为 Nola 升级 Codex 执行体系 | 规划 | P0 | Done | Nola 专属 docs、tasks 和 6 个指定 Skills 存在；没有创建业务代码。 | 无 |
+| BL-002 | 定义桌面端 MVP 页面集合 | 第一阶段 | P0 | Done | 已在 `docs/prd.md` 描述 Today、任务、灵感箱、日历、提醒、随机启动等流程，并在 `docs/roadmap.md` 汇总。 | BL-001 |
 | BL-003 | 定义任务和灵感箱领域模型 | 第一阶段 | P0 | Ready | 已记录任务、项目、灵感条目、提醒和同步预留字段。 | BL-001 |
-| BL-004 | 规划 monorepo 实施 | 第一阶段 | P0 | Idea | 在脚手架创建前批准未来 apps 和 packages 布局。 | BL-002 |
+| BL-004 | 规划 monorepo 实施 | 第一阶段 | P0 | Ready | 在脚手架创建前批准未来 apps 和 packages 布局。 | BL-002 |
 | BL-005 | 规划桌面端提醒适配器 | 第一阶段 | P1 | Idea | 定义共享提醒规则模型和桌面端适配器职责。 | BL-003 |
-| BL-006 | 规划随机启动体验 | 第一阶段 | P1 | Idea | 记录选择规则、用户文案和低能量行为。 | BL-002 |
-| BL-007 | 规划 ADHD 友好设计 tokens | 第一阶段 | P1 | Idea | 记录色彩、字体、间距、动效和可访问性方向。 | BL-002 |
+| BL-006 | 规划随机启动体验 | 第一阶段 | P1 | Ready | 记录选择规则、用户文案和低能量行为。 | BL-002 |
+| BL-007 | 规划 ADHD 友好设计 tokens | 第一阶段 | P1 | Ready | 记录色彩、字体、间距、动效和可访问性方向。 | BL-002 |
 | BL-008 | 准备桌面端 MVP 实施计划 | 第一阶段 | P0 | Idea | 存在脚手架和 MVP 功能的逐任务实施计划。 | BL-002, BL-003 |
 | BL-009 | 规划移动端 MVP 复用策略 | 第二阶段 | P2 | Idea | 记录 core、types、schema、tokens 的移动端复用边界。 | 桌面端 MVP 基础 |
 | BL-010 | 规划未来云同步 | 第三阶段 | P2 | Idea | 记录 Supabase 与自建后端的决策标准和同步字段。 | 本地 schema 已验证 |
 | BL-011 | 规划未来 AI 拆解模块 | 后续 | P3 | Idea | 记录 `packages/ai` 接口预期，但不实现。 | MVP 任务模型 |
+| BL-012 | 搭建桌面端 MVP 代码基础 | 第一阶段 | P0 | In Progress | monorepo 配置、共享 packages、核心测试和桌面端 UI 壳存在；依赖安装和构建验证已完成，或阻塞已记录。 | BL-004, BL-008 |
 
 ## 需求录入模板
 

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@nola/core": ["../../packages/core/src/index.ts"],
+      "@nola/design-tokens": ["../../packages/design-tokens/src/index.ts"],
+      "@nola/types": ["../../packages/types/src/index.ts"]
+    }
+  },
+  "references": [
+    { "path": "../../packages/types" },
+    { "path": "../../packages/core" },
+    { "path": "../../packages/design-tokens" }
+  ],
+  "include": ["src", "vite.config.ts"]
+}

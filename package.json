@@ -1,0 +1,36 @@
+{
+  "name": "nola",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nola desktop-first ADHD-friendly task manager.",
+  "type": "module",
+  "packageManager": "pnpm@10.24.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @nola/desktop",
+    "build": "npm run build -ws",
+    "test": "node --test packages/core/src/*.test.ts packages/db-schema/src/*.test.ts",
+    "typecheck": "tsc -b"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "electron": "^39.2.7",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@nola/core": "file:packages/core",
+    "@nola/db-schema": "file:packages/db-schema",
+    "@nola/design-tokens": "file:packages/design-tokens",
+    "@nola/types": "file:packages/types",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.8"
+  }
+}

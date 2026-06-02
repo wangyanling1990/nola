@@ -23,6 +23,24 @@ Primary capabilities:
 - Low-energy task mode
 - ADHD-friendly design system
 
+Approved desktop MVP screen set:
+
+| Screen | Phase 1 purpose |
+| --- | --- |
+| Today | Give the user a calm starting point and one visible next action |
+| Tasks | Manage structured tasks, subtasks, status, next action, and energy level |
+| Inbox | Capture messy thoughts before organizing them |
+| Calendar | Orient tasks and reminders by date without full calendar sync |
+| Reminders | Manage fixed local reminders |
+| Random Start | Suggest one optional task or next action |
+| Settings | Configure comfort, local data notes, and backup/export entry points |
+
+Phase 1 flow boundaries:
+
+- Today, Tasks, Inbox, Calendar, Reminders, and Random Start are implementation-planning baseline flows.
+- Settings is included only for MVP comfort, local data, and backup/export controls.
+- External calendar sync, accounts, cloud sync, AI decomposition, analytics, and productivity scoring remain out of scope.
+
 Exit criteria:
 
 - Desktop MVP flows are implemented and tested.
@@ -76,14 +94,15 @@ Primary capabilities:
 
 | Item | Status | Notes |
 | --- | --- | --- |
-| Nola Codex execution system | In progress | Project management and execution docs only |
-| Desktop MVP planning | Ready | No business code yet |
+| Nola Codex execution system | Done | Project management and execution docs only |
+| Desktop MVP screen set | Done | BL-002 defines the baseline screens and flows |
+| Desktop MVP implementation planning | Ready | No business code yet |
 
 ## Next
 
 | Item | Trigger |
 | --- | --- |
-| Write desktop MVP implementation plan | Execution system is verified |
+| Write desktop MVP implementation plan | BL-002 screen set is approved and documented |
 | Create monorepo scaffold | User explicitly requests business implementation |
 | Define first data schema migration | User approves implementation scope |
 
