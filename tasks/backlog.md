@@ -34,7 +34,7 @@ This backlog tracks planning and implementation work for Nola. Every task should
 | BL-009 | Plan mobile MVP reuse strategy | Phase 2 | P2 | Idea | Mobile reuse boundaries for core, types, schema, and tokens are documented. | Desktop MVP foundation |
 | BL-010 | Plan future cloud sync | Phase 3 | P2 | Idea | Supabase vs custom backend decision criteria and sync fields are documented. | Local schema validated |
 | BL-011 | Plan future AI decomposition module | Later | P3 | Idea | `packages/ai` interface expectations are documented without implementation. | MVP task model |
-| BL-012 | Scaffold desktop MVP code foundation | Phase 1 | P0 | In Progress | Monorepo configs, shared packages, core tests, and desktop UI shell exist; dependency install and build verification are completed or blockers are recorded. | BL-004, BL-008 |
+| BL-012 | Scaffold desktop MVP code foundation | Phase 1 | P0 | Done | Monorepo configs, shared packages, core tests, desktop UI shell, dependency install, typecheck, build, and test verification are completed. | BL-004, BL-008 |
 
 ## Intake Template
 

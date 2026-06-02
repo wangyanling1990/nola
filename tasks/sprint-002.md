@@ -7,7 +7,7 @@ Begin Phase 1 code implementation for Nola by creating the monorepo foundation, 
 ## Dates
 
 - Start: 2026-06-02
-- End:
+- End: 2026-06-02
 
 ## Scope Rules
 
@@ -27,7 +27,7 @@ Begin Phase 1 code implementation for Nola by creating the monorepo foundation, 
 | S2-004 | Add shared schema definitions | BL-003 | Done | `packages/db-schema` exposes task, inbox, reminder table definitions with sync-ready fields; tests pass. |
 | S2-005 | Add design token package | BL-007 | Done | `packages/design-tokens` defines Nola color, spacing, radius, and typography direction. |
 | S2-006 | Add desktop MVP UI shell | BL-012 | Done | `apps/desktop` includes a React/Vite UI shell for Today, Tasks, Inbox, Calendar, Reminders, Random Start, and Settings. |
-| S2-007 | Install dependencies and verify build | BL-012 | Blocked | `npm install` is blocked by registry network `ECONNRESET`; retry after network stabilizes or configure a working registry/proxy. |
+| S2-007 | Install dependencies and verify build | BL-012 | Done | Dependencies are installed locally, generated outputs are ignored, and `typecheck`, `build`, and `test` pass. |
 
 ## Verification Evidence
 
@@ -35,17 +35,19 @@ Begin Phase 1 code implementation for Nola by creating the monorepo foundation, 
 | --- | --- | --- |
 | TDD red | Done | `npm.cmd test` failed before implementation because `random-start.ts` and `db-schema/index.ts` were missing. |
 | Core tests | Done | `npm.cmd test` passes 7 tests after implementation. |
-| Dependency install | Blocked | `npm.cmd install --legacy-peer-deps`, retry options, mirror registry retry, and offline install all failed. Network installs hit `ECONNRESET`; offline install lacks cached `rollup`. |
-| Build/typecheck | Blocked | Cannot run until dependencies install. |
+| Dependency install | Done | Local `node_modules` and `package-lock.json` exist after the interrupted network install recovered. `.gitignore` excludes dependency and build output folders. |
+| Typecheck | Done | `npm.cmd run typecheck` completes successfully. |
+| Build | Done | `npm.cmd run build` completes successfully for the desktop app and shared packages. |
+| Browser UI check | Done | Vite dev server at `http://127.0.0.1:5173` loads Nola, exposes the seven MVP navigation buttons, converts an inbox item into a task, shows the converted task in Tasks, and displays a Random Start recommendation without console errors. |
 
 ## Blockers
 
-| Blocker | Impact | Next action |
-| --- | --- | --- |
-| npm registry network resets while fetching Vite or React DOM; offline cache lacks Rollup | Prevents dependency install, typecheck, and Vite build | Retry install after network stabilizes, provide a working registry/proxy, or pre-populate npm cache. |
+No active blocker.
+
+Previously resolved: npm registry `ECONNRESET` interrupted dependency install. The local dependency tree is now available, and verification commands pass.
 
 ## Retrospective
 
-- What worked:
-- What was unclear:
-- Follow-up actions:
+- What worked: Small shared packages made it possible to test random-start, inbox, today, schema, and tokens before expanding feature scope.
+- What was unclear: Dependency installation was interrupted by registry/network behavior and needed a follow-up status check.
+- Follow-up actions: Start the next sprint with real persistence, reminder adapter planning, and desktop interaction hardening.

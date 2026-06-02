@@ -1,4 +1,4 @@
-import type { NolaTask, RandomStartSuggestion } from "../../types/src/index.ts";
+import type { NolaTask, RandomStartSuggestion } from "@nola/types";
 
 export interface RandomStartOptions {
   lowEnergyMode?: boolean;

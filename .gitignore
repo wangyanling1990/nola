@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-types/
+apps/*/dist/
+apps/*/dist-types/
+packages/*/dist/
+*.tsbuildinfo
+npm-debug.log*
+.tmp/

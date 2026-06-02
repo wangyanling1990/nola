@@ -1,3 +1,3 @@
-export * from "./random-start.ts";
-export * from "./today.ts";
-export * from "./inbox.ts";
+export * from "./random-start";
+export * from "./today";
+export * from "./inbox";

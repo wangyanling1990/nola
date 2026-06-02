@@ -1,4 +1,4 @@
-import type { NolaTask } from "../../types/src/index.ts";
+import type { NolaTask } from "@nola/types";
 
 export interface TodayFocusOptions {
   lowEnergyMode?: boolean;

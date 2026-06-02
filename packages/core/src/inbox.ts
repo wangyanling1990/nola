@@ -1,4 +1,4 @@
-import type { NolaInboxItem, NolaTask } from "../../types/src/index.ts";
+import type { NolaInboxItem, NolaTask } from "@nola/types";
 
 export interface CreateTaskFromInboxOptions {
   id: string;

@@ -34,7 +34,7 @@
 | BL-009 | 规划移动端 MVP 复用策略 | 第二阶段 | P2 | Idea | 记录 core、types、schema、tokens 的移动端复用边界。 | 桌面端 MVP 基础 |
 | BL-010 | 规划未来云同步 | 第三阶段 | P2 | Idea | 记录 Supabase 与自建后端的决策标准和同步字段。 | 本地 schema 已验证 |
 | BL-011 | 规划未来 AI 拆解模块 | 后续 | P3 | Idea | 记录 `packages/ai` 接口预期，但不实现。 | MVP 任务模型 |
-| BL-012 | 搭建桌面端 MVP 代码基础 | 第一阶段 | P0 | In Progress | monorepo 配置、共享 packages、核心测试和桌面端 UI 壳存在；依赖安装和构建验证已完成，或阻塞已记录。 | BL-004, BL-008 |
+| BL-012 | 搭建桌面端 MVP 代码基础 | 第一阶段 | P0 | Done | monorepo 配置、共享 packages、核心测试、桌面端 UI 壳、依赖安装、typecheck、构建和测试验证均已完成。 | BL-004, BL-008 |
 
 ## 需求录入模板
 
