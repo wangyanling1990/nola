@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #fcf8f7;
+            overflow-x: hidden;
+        }
+        .soft-glow {
+            box-shadow: 0 8px 32px rgba(51, 65, 85, 0.04);
+        }
+        .capsule-input {
+            border-radius: 1rem;
+            background-color: #f1f5f9;
+            border: none;
+            transition: all 0.3s ease-out;
+        }
+        .capsule-input:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px #5e5e5b;
+            outline: none;
+        }
+        .task-card-enter {
+            animation: slideUp 0.4s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .strikethrough-animate:checked + span {
+            text-decoration: line-through;
+            color: #777871;
+            transition: all 0.3s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#313030",
+                        "on-surface-variant": "#464742",
+                        "surface-container-low": "#f7f3f1",
+                        "on-surface": "#1c1b1b",
+                        "on-primary-fixed-variant": "#474744",
+                        "surface-tint": "#5e5e5b",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "primary-container": "#f9f7f2",
+                        "on-tertiary-container": "#557491",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#aacaea",
+                        "on-tertiary-fixed": "#001d32",
+                        "surface-dim": "#ddd9d8",
+                        "primary": "#5e5e5b",
+                        "on-background": "#1c1b1b",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e0",
+                        "surface": "#fcf8f7",
+                        "outline": "#777871",
+                        "inverse-on-surface": "#f4f0ef",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#5d5f5f",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "outline-variant": "#c7c7bf",
+                        "background": "#fcf8f7",
+                        "secondary-container": "#dfe0e0",
+                        "secondary-fixed": "#e2e2e2",
+                        "tertiary-fixed": "#cde5ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f1edec",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#616363",
+                        "on-primary-fixed": "#1b1c19",
+                        "tertiary": "#42617d",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "surface-container-high": "#ebe7e6",
+                        "primary-fixed": "#e4e2dd",
+                        "tertiary-container": "#f3f7ff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#71716d",
+                        "surface-variant": "#e5e2e0",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#294964",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-primary": "#c8c6c2",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fcf8f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "48px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "max-width": "1200px",
+                        "gutter": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Sidebar Navigation (Predicted Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface shadow-[0_8px_32px_rgba(51,65,85,0.04)] flex flex-col gap-base p-md z-10 hidden md:flex">
+<div class="flex items-center gap-sm mb-lg px-sm">
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim flex items-center justify-center overflow-hidden">
+<img alt="用户头像" class="w-full h-full object-cover" data-alt="A professional and serene headshot of a young creative professional with a soft, warm lighting setup against a neutral background. The person has a calm expression, embodying the 'Cognitive Ease' philosophy. The image is crisp with a shallow depth of field, maintaining the soft minimalism aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlRimgWj7oH5_qUzh4h1OKdV_NXdBNagXW3HIBJCS3fKAWBg064flgiwdKEBlZ1f58yYieQTgkxSyoe3GmdZSkNJIvE6IAmMY4Y32wyXiQu5UX536y7NXc9sCkqD_lIFFr0E329csBuFkJ8VbkHn87IMtw58Rhd4ywqlXQRMVLy44iGX7z4ZNxNWZm4FThVzU5OSP2Dl3K2K6BLytb25vuTyE_lNHlNu1SgqeVG2ZlNdPsbo64gAjjc11Slvr7hDhj4oeZzXGImgVE">
+</div>
+<div>
+<h1 class="font-headline-md text-[18px] font-bold text-primary">专注中心</h1>
+<p class="text-[12px] text-on-surface-variant">呼吸感管理</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md p-sm text-primary font-bold bg-secondary-container rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-body-md">今日</span>
+</a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md">脑内清空</span>
+</a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-body-md">任务</span>
+</a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md">日历</span>
+</a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="shuffle">shuffle</span>
+<span class="font-body-md">随机启动</span>
+</a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-body-md">灵感拆解</span>
+</a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-body-md">固定提醒</span>
+</a>
+</nav>
+<div class="mt-auto pt-md">
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">设置</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas Area -->
+<main class="ml-0 md:ml-64 p-md md:p-xl min-h-screen flex flex-col items-center">
+<!-- Top App Bar (Modified for Content Focus) -->
+<header class="w-full max-w-max-width flex justify-between items-center mb-xl" style="margin-top: -40px;">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="arrow_back" onclick="window.history.back()">arrow_back</span>
+<h2 class="font-headline-lg text-primary">任务详情</h2>
+</div>
+<div class="flex gap-md">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Task Detail Content (The Focus Modal Style) -->
+<div class="w-full max-w-[1200px] bg-white rounded-xl soft-glow p-md md:p-lg task-card-enter" style="margin-top: -30px;">
+<!-- Header Section -->
+<div class="mb-lg">
+<input class="w-full font-headline-lg text-on-surface bg-transparent border-none focus:ring-0 p-0 mb-sm" placeholder="输入任务名称..." type="text" value="完成品牌视觉系统初稿">
+<div class="flex flex-wrap gap-md text-on-surface-variant">
+<div class="flex items-center gap-xs bg-surface-container-low px-sm py-xs rounded-full">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-label-md">截止：5月24日</span>
+</div>
+<div class="flex items-center gap-xs bg-tertiary-container text-on-tertiary-container px-sm py-xs rounded-full">
+<span class="material-symbols-outlined text-[18px]" data-icon="bolt">bolt</span>
+<span class="text-label-md">中等精力</span>
+</div>
+<div class="flex items-center gap-xs bg-secondary-container px-sm py-xs rounded-full">
+<span class="material-symbols-outlined text-[18px]" data-icon="tag">tag</span>
+<span class="text-label-md">设计项目</span>
+</div>
+</div>
+</div>
+<!-- NEXT STEP HIGHLIGHT (CRITICAL SECTION) -->
+<div class="mb-lg bg-tertiary-container border border-tertiary/10 rounded-lg p-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-md opacity-10 pointer-events-none transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-[80px]" data-icon="trending_flat">trending_flat</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-sm mb-sm text-tertiary">
+<span class="material-symbols-outlined font-bold" data-icon="near_me">near_me</span>
+<span class="font-headline-md text-[18px] font-bold">下一步只需要做什么？</span>
+</div>
+<div class="flex flex-col md:flex-row gap-md items-center">
+<div class="flex-1 w-full">
+<input class="w-full text-body-lg text-on-tertiary-container font-medium bg-transparent border-none focus:ring-0 p-0" placeholder="只需要一小步..." type="text" value="打开 Figma 并建立名为 'Brand Identity V1' 的新画板">
+</div>
+<button class="whitespace-nowrap bg-tertiary text-white px-md py-sm rounded-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-xs shadow-sm" onclick="handleDeconstruct()">
+<span class="material-symbols-outlined text-[20px]" data-icon="content_cut">content_cut</span>
+<span class="text-label-md">拆成第一步</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- Left Column: Notes & Subtasks -->
+<div class="space-y-lg">
+<!-- Notes -->
+<section>
+<div class="flex items-center gap-sm mb-sm text-primary">
+<span class="material-symbols-outlined" data-icon="notes">notes</span>
+<h3 class="font-headline-md text-[16px]">备忘笔记</h3>
+</div>
+<textarea class="w-full h-32 capsule-input p-md text-body-md resize-none" placeholder="记录一些细节或想法...">需要参考上次会议提到的柔和极简主义风格。主色调使用 Mist Blue (#5E5E5B) 和 Sage Green。避免使用过于刺眼的阴影。</textarea>
+</section>
+<!-- Subtasks -->
+<section>
+<div class="flex items-center justify-between mb-sm text-primary">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined" data-icon="format_list_numbered">format_list_numbered</span>
+<h3 class="font-headline-md text-[16px]">子任务</h3>
+</div>
+<button class="text-primary hover:bg-surface-container rounded-full p-1 transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+<div class="space-y-sm">
+<label class="flex items-center gap-md group cursor-pointer">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary transition-all strikethrough-animate" type="checkbox">
+<span class="text-body-md text-on-surface">确定核心调色板</span>
+</label>
+<label class="flex items-center gap-md group cursor-pointer">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary transition-all strikethrough-animate" type="checkbox">
+<span class="text-body-md text-on-surface">选择符合品牌精神的无衬线字体</span>
+</label>
+<label class="flex items-center gap-md group cursor-pointer">
+<input checked="" class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary transition-all strikethrough-animate" type="checkbox">
+<span class="text-body-md text-on-surface">整理参考图 (Moodboard)</span>
+</label>
+</div>
+</section>
+</div>
+<!-- Right Column: Metadata & Mood -->
+<div class="space-y-lg">
+<!-- Energy Level Selector -->
+<section>
+<div class="flex items-center gap-sm mb-sm text-primary">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<h3 class="font-headline-md text-[16px]">所需精力</h3>
+</div>
+<div class="flex justify-between gap-sm">
+<button class="flex-1 py-sm rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-tertiary-container hover:text-tertiary transition-all border border-transparent focus:border-tertiary">
+<span class="block text-xl font-bold">1</span>
+<span class="text-[10px] uppercase">轻松</span>
+</button>
+<button class="flex-1 py-sm rounded-lg bg-tertiary-container text-tertiary border border-tertiary/20">
+<span class="block text-xl font-bold">2</span>
+<span class="text-[10px] uppercase">适中</span>
+</button>
+<button class="flex-1 py-sm rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-tertiary-container hover:text-tertiary transition-all border border-transparent focus:border-tertiary">
+<span class="block text-xl font-bold">3</span>
+<span class="text-[10px] uppercase">挑战</span>
+</button>
+</div>
+</section>
+<!-- Deadline & Reminder -->
+<section>
+<div class="flex items-center gap-sm mb-sm text-primary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<h3 class="font-headline-md text-[16px]">截止与提醒</h3>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center justify-between p-sm capsule-input">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="event">event</span>
+<span class="text-body-md">2024年5月24日</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="edit">edit</span>
+</div>
+<div class="flex items-center justify-between p-sm capsule-input">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="alarm">alarm</span>
+<span class="text-body-md">下午 2:00</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="edit">edit</span>
+</div>
+</div>
+</section>
+<!-- Progress Animation Placeholder -->
+<div class="pt-md">
+<div class="bg-primary-container p-md rounded-lg flex items-center gap-md">
+<div class="relative w-16 h-16">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-secondary-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-tertiary transition-all duration-1000" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="114.3" stroke-width="4"></circle>
+</svg>
+    <div class="absolute inset-0 flex items-center justify-center text-label-md font-bold text-tertiary">35%</div>
+    </div>
+    <div>
+    <h4 class="font-bold text-primary">项目进度</h4>
+    <p class="text-label-md text-on-surface-variant">保持稳定的节奏</p>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-xl pt-lg border-t border-surface-container flex justify-end gap-md">
+<button class="px-xl py-sm rounded-full text-primary font-medium hover:bg-surface-container-high transition-all">取消</button>
+<button class="px-xl py-sm rounded-full bg-primary text-white font-medium hover:scale-[1.02] shadow-sm transition-all">保存更改</button>
+</div>
+</div>
+</main>
+<!-- Navigation Drawer (Predicted Component) -->
+
+<script>
+        // Micro-interactions and animations
+        function handleDeconstruct() {
+            const btn = event.currentTarget;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> 拆解中...';
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span> 已拆解';
+                btn.classList.replace('bg-tertiary', 'bg-sage-green'); // Sage green from design guide spirit
+                btn.style.backgroundColor = '#8BA888'; // Custom Sage Green to match palette spirit
+                
+                // Trigger a subtle success animation on the input
+                const input = document.querySelector('.bg-tertiary-container input');
+                input.classList.add('translate-x-1');
+                setTimeout(() => input.classList.remove('translate-x-1'), 100);
+            }, 800);
+        }
+
+        // Handle checkbox animation
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if(this.checked) {
+                    this.parentElement.style.opacity = '0.6';
+                    this.parentElement.style.transition = 'opacity 0.3s ease';
+                } else {
+                    this.parentElement.style.opacity = '1';
+                }
+            });
+        });
+    </script>
+
+
+
+
+</body></html>

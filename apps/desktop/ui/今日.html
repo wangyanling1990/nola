@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kiri 仪表盘 | 今日</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "tertiary": "#42617d",
+                "primary-fixed-dim": "#c8c6c2",
+                "surface-variant": "#e5e2e0",
+                "surface-container-low": "#f7f3f1",
+                "outline": "#777871",
+                "secondary-fixed": "#e2e2e2",
+                "error-container": "#ffdad6",
+                "surface-bright": "#fcf8f7",
+                "surface-container-high": "#ebe7e6",
+                "on-primary-fixed": "#1b1c19",
+                "tertiary-container": "#f3f7ff",
+                "surface-container": "#f1edec",
+                "tertiary-fixed-dim": "#aacaea",
+                "on-secondary-container": "#616363",
+                "secondary": "#5d5f5f",
+                "outline-variant": "#c7c7bf",
+                "on-secondary": "#ffffff",
+                "inverse-surface": "#313030",
+                "primary-container": "#f9f7f2",
+                "surface-dim": "#ddd9d8",
+                "on-tertiary-fixed": "#001d32",
+                "inverse-on-surface": "#f4f0ef",
+                "on-surface": "#1c1b1b",
+                "tertiary-fixed": "#cde5ff",
+                "on-tertiary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "primary-fixed": "#e4e2dd",
+                "primary": "#5e5e5b",
+                "background": "#fcf8f7",
+                "on-primary-container": "#71716d",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#464742",
+                "on-secondary-fixed": "#1a1c1c",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed-variant": "#294964",
+                "on-secondary-fixed-variant": "#454747",
+                "on-tertiary-container": "#557491",
+                "surface-tint": "#5e5e5b",
+                "on-background": "#1c1b1b",
+                "on-primary-fixed-variant": "#474744",
+                "inverse-primary": "#c8c6c2",
+                "surface": "#fcf8f7",
+                "secondary-container": "#dfe0e0",
+                "error": "#ba1a1a",
+                "surface-container-highest": "#e5e2e0",
+                "on-error-container": "#93000a",
+                "secondary-fixed-dim": "#c6c6c7"
+            },
+            "borderRadius": {
+                "DEFAULT": "1rem",
+                "lg": "2rem",
+                "xl": "3rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "md": "24px",
+                "base": "8px",
+                "sm": "12px",
+                "margin": "48px",
+                "lg": "40px",
+                "xs": "4px",
+                "xl": "64px",
+                "gutter": "32px",
+                "max-width": "1200px",
+                "container-padding": "24px",
+                "unit": "16px"
+            },
+            "fontFamily": {
+                "label-md": ["Inter"],
+                "display-lg": ["Plus Jakarta Sans"],
+                "headline-md": ["Plus Jakarta Sans"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"]
+            },
+            "fontSize": {
+                "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #F9F7F2;
+            color: #1c1b1b;
+            overflow-x: hidden;
+        }
+        .soft-glow {
+            box-shadow: 0 8px 32px rgba(51, 65, 85, 0.04);
+        }
+        .momentum-gradient {
+            background: linear-gradient(90deg, #aacaea 0%, #cde5ff 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .pulse-animation {
+            animation: pulse 4s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e2e0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md antialiased h-screen overflow-hidden">
+<div class="flex h-full">
+<!-- 1. Left Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-low dark:bg-surface-dim bg-white/30 backdrop-blur-xl shadow-sm flex flex-col p-6 gap-6 z-50">
+<div class="flex flex-col gap-2 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white overflow-hidden shadow-md">
+<img alt="Kiri Mascot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAozHomAPcA7LFxYPZ5zjBspEJWQnChbpG4YvIExDk9gBmlibDCgzUbDQcw_X8-Ud_LcGPrpz7gdE5Y9CTo79sUi7T2JDU_SWsbrfHFdWbriWY5gHFQnLzcMxzBpL-C7AXgzbIvaw0KC_xevKHQ6TxvrbQergmbtN7BFsVVlf0X3QnqSLqxWOWAHgTsi-IOGZ-LuWFsDh1vZlgU4_7f5QB1C0PTfxYFMDM3vQvGb2NW6v8nrUQ_QnebmkfNHzknbA20E7_Io82CE_lH"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary leading-tight">Kiri</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">从最小的一步开始</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2 overflow-y-auto pr-2">
+<!-- Navigation Items -->
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-sm p-sm transition-all duration-300 text-primary dark:text-inverse-primary font-bold bg-secondary-container dark:bg-secondary rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-body-md text-body-md">今日</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md text-body-md">脑内清空</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-body-md text-body-md">任务</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md text-body-md">日历</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="shuffle">shuffle</span>
+<span class="font-body-md text-body-md">随机启动</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-body-md text-body-md">灵感拆解</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-body-md text-body-md">固定提醒</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary py-sm rounded-lg hover:scale-[1.01] transition-transform shadow-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-md text-label-md">新建任务</span>
+</button>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-xl p-3 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md">帮助</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area (3 columns grid layout) -->
+<main class="ml-[280px] w-full flex overflow-hidden">
+<!-- 2. Center Content: Dashboard View -->
+<div class="flex-1 h-full overflow-y-auto px-10 py-8 flex flex-col gap-10 scroll-smooth">
+<!-- Top: Header & Momentum -->
+<section class="flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">早安，Alex</h2>
+<p class="text-on-surface-variant font-body-md">你今天处于理想状态，保持节奏，稳步前进。</p>
+</div>
+<div class="text-right">
+<span class="font-label-md text-tertiary">10月24日，星期二</span>
+</div>
+</div>
+<div class="bg-white rounded-lg p-6 soft-glow border border-surface-container flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-body-lg text-on-surface">今日动力</span>
+<span class="font-label-md text-on-surface-variant px-3 py-1 bg-tertiary-container rounded-full text-tertiary">理想区</span>
+</div>
+<div class="relative h-4 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-[65%] momentum-gradient rounded-full transition-all duration-1000 ease-out"></div>
+<div class="absolute left-[65%] top-0 h-full w-[2px] bg-tertiary opacity-50 pulse-animation"></div>
+</div>
+<div class="flex justify-between text-label-sm text-on-surface-variant">
+<span>启动中</span>
+<span>专注巅峰</span>
+<span>休息与回顾</span>
+</div>
+</div>
+</section>
+<!-- Middle: Quick Brain Dump -->
+<section class="bg-white rounded-lg p-8 soft-glow border border-surface-container flex flex-col gap-6 transition-all hover:scale-[1.005]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">psychology_alt</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">快速脑内清空</h3>
+</div>
+<div class="relative">
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-6 font-body-md text-on-surface focus:ring-2 focus:ring-tertiary-fixed-dim transition-all resize-none placeholder:text-outline-variant" placeholder="此时此刻在想什么？先记录下来，稍后再处理。" rows="3"></textarea>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">attachment</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">label</span>
+</button>
+</div>
+<button class="px-8 py-3 bg-tertiary text-white rounded-full font-label-md hover:opacity-90 transition-all shadow-md active:scale-95 flex items-center gap-2" id="save-task-btn">
+<span class="material-symbols-outlined text-base">save</span>
+                        存入任务库
+                    </button>
+</div>
+</section>
+<!-- Bottom: Starting Point & Pulse -->
+<section class="grid grid-cols-2 gap-8 mb-12">
+<!-- Best Starting Point Card -->
+<div class="bg-white rounded-lg p-8 soft-glow border border-surface-container flex flex-col gap-6 hover:shadow-lg transition-all group">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-tertiary-container text-tertiary rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="text-label-sm px-2 py-1 bg-surface-container rounded font-label-md text-on-surface-variant">10 分钟</span>
+</div>
+<div>
+<h4 class="text-label-sm text-tertiary font-bold uppercase tracking-wider mb-1">最佳起点</h4>
+<p class="font-headline-md text-headline-md leading-tight text-on-surface group-hover:text-tertiary transition-colors">查看并处理 5 封非紧急邮件</p>
+<p class="text-body-md text-on-surface-variant mt-2 opacity-80">低能耗，高回报。先让大脑转动起来。</p>
+</div>
+<button class="mt-auto flex items-center gap-2 text-tertiary font-label-md group-hover:gap-4 transition-all">
+                        立即开始 <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Daily Pulse Card -->
+<div class="bg-white rounded-lg p-8 soft-glow border border-surface-container flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">monitoring</span>
+<h4 class="font-headline-md text-body-lg text-on-surface">每日脉搏</h4>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:rotate-45 transition-transform">more_vert</span>
+</div>
+<div class="flex items-end justify-between h-32 px-2">
+<div class="w-8 bg-tertiary-fixed-dim rounded-t-full h-[40%] hover:h-[45%] transition-all" title="低能"></div>
+<div class="w-8 bg-tertiary-fixed-dim rounded-t-full h-[60%] hover:h-[65%] transition-all" title="稳定"></div>
+<div class="w-8 bg-tertiary rounded-t-full h-[90%] hover:h-[95%] transition-all" title="专注巅峰"></div>
+<div class="w-8 bg-tertiary-fixed-dim rounded-t-full h-[75%] hover:h-[80%] transition-all" title="减弱"></div>
+<div class="w-8 bg-tertiary-container rounded-t-full h-[50%] hover:h-[55%] transition-all" title="休息"></div>
+</div>
+<div class="flex justify-between text-label-sm text-on-surface-variant">
+<span>8am</span>
+<span>12pm</span>
+<span>4pm</span>
+<span>8pm</span>
+</div>
+</div>
+</section>
+</div>
+<!-- 3. Right Sidebar: Wellness and Reminders -->
+<aside class="w-[380px] h-full bg-surface-container-lowest border-l border-surface-container flex flex-col gap-10 p-8 overflow-y-auto">
+<!-- Today's Status -->
+<section class="flex flex-col gap-4">
+<h3 class="font-headline-md text-body-lg text-on-surface">今日状态</h3>
+<div class="bg-primary-container p-6 rounded-lg soft-glow relative overflow-hidden group">
+<div class="relative z-10">
+<div class="text-display-lg text-primary font-black leading-none mb-1">45 分钟</div>
+<div class="font-label-md text-on-primary-container opacity-80 flex items-center gap-2">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">timer</span>
+                            累计专注时长
+                        </div>
+</div>
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-size: 120px;">track_changes</span>
+</div>
+</div>
+</section>
+<!-- Gentle Reminders -->
+<section class="flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-body-lg text-on-surface">温和提醒</h3>
+<button class="text-tertiary text-label-sm hover:underline">编辑</button>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-surface-container-high transition-all hover:bg-surface-container-low cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-base">water_drop</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">喝水</p>
+<p class="text-label-sm text-on-surface-variant">现在该喝 250ml</p>
+</div>
+<button class="w-6 h-6 rounded-full border-2 border-surface-variant hover:border-tertiary transition-colors"></button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-surface-container-high transition-all hover:bg-surface-container-low cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-base">visibility</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">眼部休息 (20/20/20)</p>
+<p class="text-label-sm text-on-surface-variant">12 分钟后</p>
+</div>
+<span class="text-label-sm text-outline-variant">即将到来</span>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-surface-container-high transition-all hover:bg-surface-container-low cursor-pointer opacity-60">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-base">medication</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface line-through">早晨维他命</p>
+<p class="text-label-sm text-on-surface-variant">已于 8:15am 服用</p>
+</div>
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+</div>
+</div>
+</section>
+<!-- Body Check / Motivation -->
+<section class="mt-auto">
+<div class="bg-surface-container p-8 rounded-lg border-2 border-dashed border-outline-variant/30 flex flex-col items-center text-center gap-4">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-sm pulse-animation">
+<span class="material-symbols-outlined text-tertiary" style="font-size: 32px;">self_improvement</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg text-on-surface">身体检查</h4>
+<p class="text-body-md text-on-surface-variant px-4 mt-2">转动肩膀，做一次深呼吸。</p>
+</div>
+<button class="mt-2 text-tertiary font-label-md flex items-center gap-2 hover:gap-3 transition-all">
+                        1 分钟拉伸引导 <span class="material-symbols-outlined text-base">play_arrow</span>
+</button>
+</div>
+<div class="mt-8 text-center italic text-on-surface-variant font-body-md px-6 opacity-60">
+                    "专注是一种资源，而非负担。请温柔地对待今天的节奏。"
+                </div>
+</section>
+</aside>
+</main>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+    const textarea = document.querySelector('textarea');
+    const saveBtn = document.getElementById('save-task-btn');
+    
+    if(textarea && saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            if(textarea.value.trim() !== '') {
+                const originalContent = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<span class="material-symbols-outlined text-base">check</span> 已存入';
+                saveBtn.classList.replace('bg-tertiary', 'bg-green-600');
+                
+                setTimeout(() => {
+                    textarea.value = '';
+                    saveBtn.innerHTML = originalContent;
+                    saveBtn.classList.replace('bg-green-600', 'bg-tertiary');
+                }, 1500);
+            }
+        });
+    }
+</script>
+</body></html>

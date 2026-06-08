@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我的大脑 - 脑力倾倒 (Brain Dump)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f7f3f1",
+                        "primary-fixed": "#e4e2dd",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#294964",
+                        "primary": "#5e5e5b",
+                        "surface-container-high": "#ebe7e6",
+                        "on-tertiary-fixed": "#001d32",
+                        "on-secondary-fixed-variant": "#454747",
+                        "primary-container": "#f9f7f2",
+                        "on-surface": "#1c1b1b",
+                        "inverse-surface": "#313030",
+                        "outline-variant": "#c7c7bf",
+                        "tertiary": "#42617d",
+                        "tertiary-fixed": "#cde5ff",
+                        "surface-container": "#f1edec",
+                        "on-tertiary-container": "#557491",
+                        "on-primary-container": "#71716d",
+                        "surface-dim": "#ddd9d8",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "outline": "#777871",
+                        "on-primary-fixed": "#1b1c19",
+                        "surface-tint": "#5e5e5b",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-variant": "#e5e2e0",
+                        "background": "#fcf8f7",
+                        "inverse-primary": "#c8c6c2",
+                        "surface-container-highest": "#e5e2e0",
+                        "surface-bright": "#fcf8f7",
+                        "secondary": "#5d5f5f",
+                        "on-surface-variant": "#464742",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#aacaea",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#474744",
+                        "inverse-on-surface": "#f4f0ef",
+                        "secondary-container": "#dfe0e0",
+                        "tertiary-container": "#f3f7ff",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface": "#fcf8f7",
+                        "on-background": "#1c1b1b",
+                        "on-secondary-container": "#616363",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "margin": "48px",
+                        "lg": "40px",
+                        "gutter": "32px",
+                        "xl": "64px",
+                        "max-width": "1200px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fcf8f7;
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #1c1b1b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .soft-glow {
+            box-shadow: 0 8px 32px rgba(51, 65, 85, 0.04);
+        }
+        .writing-area:focus-within {
+            box-shadow: 0 12px 48px rgba(51, 65, 85, 0.08);
+            transform: scale(1.005);
+        }
+        .transition-all-300 {
+            transition: all 0.3s ease-out;
+        }
+        .brain-dump-textarea::-webkit-scrollbar {
+            width: 4px;
+        }
+        .brain-dump-textarea::-webkit-scrollbar-thumb {
+            background: #e5e2e0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar Navigation (Shared Component Context) -->
+<!-- 1. Left Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-low dark:bg-surface-dim bg-white/30 backdrop-blur-xl shadow-sm flex flex-col p-6 gap-6 z-50">
+<div class="flex flex-col gap-2 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white overflow-hidden shadow-md">
+<img alt="Kiri Mascot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAozHomAPcA7LFxYPZ5zjBspEJWQnChbpG4YvIExDk9gBmlibDCgzUbDQcw_X8-Ud_LcGPrpz7gdE5Y9CTo79sUi7T2JDU_SWsbrfHFdWbriWY5gHFQnLzcMxzBpL-C7AXgzbIvaw0KC_xevKHQ6TxvrbQergmbtN7BFsVVlf0X3QnqSLqxWOWAHgTsi-IOGZ-LuWFsDh1vZlgU4_7f5QB1C0PTfxYFMDM3vQvGb2NW6v8nrUQ_QnebmkfNHzknbA20E7_Io82CE_lH"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary leading-tight">Kiri</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">从最小的一步开始</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2 overflow-y-auto pr-2">
+<!-- Navigation Items -->
+<!-- Navigation Items Mapping -->
+
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+    <span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-body-md text-body-md">今日</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 text-primary dark:text-inverse-primary font-bold bg-secondary-container dark:bg-secondary rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md text-body-md">脑内清空</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-body-md text-body-md">任务</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md text-body-md">日历</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="shuffle">shuffle</span>
+<span class="font-body-md text-body-md">随机启动</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-body-md text-body-md">灵感拆解</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-body-md text-body-md">固定提醒</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary py-sm rounded-lg hover:scale-[1.01] transition-transform shadow-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-md text-label-md">新建任务</span>
+</button>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-xl p-3 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md">帮助</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto px-margin py-lg bg-primary-container/30">
+<div class="max-w-max-width mx-auto">
+<!-- Header Section -->
+<header class="mb-lg" >
+<!-- <h1 class="text-display-lg text-on-surface mb-2">脑力倾倒 <span class="text-outline/50">(Brain Dump)</span></h1> -->
+<p class="text-body-lg text-on-surface-variant">先不用想完整，写下来就好。</p>
+</header>
+<!-- Calming Writing Area -->
+<section class="mb-xl" style="margin-top: -20px;">
+<div class="writing-area bg-white rounded-lg p-md soft-glow transition-all-300 border border-outline-variant/20 flex flex-col min-h-[400px]">
+<div class="flex items-center gap-4 mb-md pb-md border-b border-surface-container">
+<div class="size-12 rounded-full bg-cover bg-center" data-alt="A serene landscape photo of a calm lake at dawn, with soft morning light reflecting off the water. The colors are muted and peaceful, following a high-key light-mode aesthetic with warm neutrals. This image creates an atmosphere of stillness and focus for the user writing area." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAv5RQfHgSUziZI1KCuU9PxBD7AxALLbGOesPcAKXGli9-ZOfVmzgRF7_yPeArrUPj8yjwo7ORU_pI6XirqoOkBx53JlZJEslbfwqqugfCTBvj-Vh_g0hkwojWk_EIZrVjgyBHaBpCgF_HjyffLY3GaKCRpOt-j2WAjT5HDTvDmIUBbEqh4Q_j8hojpbeFXMLemkmhcEf3xA7OY-JMil-SKgHXbSXqa9a8qj5wJyLrWnK2aK7qdm6zx7KzSwITy6YQdS6heCbDMX93W')"></div>
+<div class="flex flex-col">
+<span class="text-label-md text-on-surface-variant">当前正在倾倒...</span>
+<span class="text-xs text-outline italic">此刻，这里只有你和你的想法。</span>
+</div>
+</div>
+<textarea class="brain-dump-textarea w-full flex-1 border-none focus:ring-0 text-body-lg text-on-surface placeholder:text-outline-variant/60 resize-none bg-transparent" placeholder="在这里输入你脑海中的任何想法，无论是明天的清单、一闪而过的创意，还是一点点小担忧..."></textarea>
+<div class="mt-md flex items-center justify-between pt-md">
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all-300" title="文本格式">
+<span class="material-symbols-outlined">format_size</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all-300" title="添加附件">
+<span class="material-symbols-outlined">attachment</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all-300" title="语音录入">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-2 text-tertiary hover:bg-tertiary-container rounded-full transition-all-300" title="AI灵感">
+<span class="material-symbols-outlined">auto_awesome</span>
+</button>
+</div>
+<div class="flex items-center gap-md">
+<span class="text-xs text-outline">已实时保存至云端</span>
+<button class="px-xl py-3 bg-tertiary text-on-tertiary rounded-full font-semibold hover:opacity-90 transition-all-300 shadow-sm">
+                                    智能分类
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Grouping Suggestions -->
+<section>
+<div class="flex items-center justify-between mb-md">
+<h2 class="text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">psychology_alt</span>
+                            AI 智能分组建议
+                        </h2>
+<span class="text-label-md text-on-surface-variant cursor-pointer hover:text-tertiary transition-colors">查看全部建议 →</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-gutter">
+<!-- Tasks Card -->
+<div class="group flex flex-col gap-sm p-md bg-white rounded-md soft-glow border border-transparent hover:border-tertiary/20 transition-all-300 hover:-translate-y-1">
+<div class="w-full aspect-square rounded-DEFAULT bg-surface-container flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="A clean top-down view of a minimalist wooden desk with a single blank notepad and a sleek pen. The lighting is soft and natural, emphasizing a productive yet calm environment. Colors follow a muted palette of warm woods and off-whites to signify clarity of tasks." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAaREwhaUw9W3TgVrR5QRsJVrIrd4VWd-1I65zWqmpdrKPytWOsqu5J39ZOqo_6bE4Y8yeY27cpHXZ8ohOF7JbBzYxgeJfQR4O_nEWIGXX_JRAXxLE8zbQJRNhSm6p0oeSSVaqbqAwPw4uaL8ZBPf5C8iTEnqPNPRNz2knJkFTzQk47xlf7O0e667kypGP_Ulhob-Sdxd5mYezcDncpXXB1M8SKelk7SYpeAlUwpCl95nnEfdvdcxno9f9vP86JZweIltviAwv-6ecW')"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface group-hover:text-tertiary transition-colors">任务 (Tasks)</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">从你的文字中识别出的待办事项</p>
+</div>
+</div>
+<!-- Inspiration Card -->
+<div class="group flex flex-col gap-sm p-md bg-white rounded-md soft-glow border border-transparent hover:border-tertiary/20 transition-all-300 hover:-translate-y-1">
+<div class="w-full aspect-square rounded-DEFAULT bg-surface-container flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="An artistic photograph of a prism reflecting a rainbow of light onto a white surface. The image represents the spark of inspiration and creativity. The aesthetic is high-key and airy, with soft pastel reflections that complement the calm focus design system." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAyjA6wbW1ZG2KOfIGZumSPykujceCy2om3Nb_dN-x7jpDM9EsiLKqNErnuwYOwoBrKxnKmBjItUlbUG3qCY4UKrySAnv-ZiMEq9_rRk2C6ObNA5olIqtxL34JwhaK2Pzd-xZkRAvpj-ObwPs3F-mnztfByv_WWurXdxwNR0nKRvBSjVkXMNS_EnFGCo9mZds58dGfeexiIT0i-YnX4nCCpN7LGIHPHAaFk8csOTZeALoGLRt6vLhPfUN8I3Jy_FSZAfV5X-x583xo3')"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface group-hover:text-tertiary transition-colors">灵感 (Inspiration)</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">捕捉到的创意和闪现的火花</p>
+</div>
+</div>
+<!-- Worries Card -->
+<div class="group flex flex-col gap-sm p-md bg-white rounded-md soft-glow border border-transparent hover:border-tertiary/20 transition-all-300 hover:-translate-y-1">
+<div class="w-full aspect-square rounded-DEFAULT bg-surface-container flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="A tranquil image of small pebbles making gentle ripples in clear water. The scene is meditative and soothing, representing the release of anxiety and worries. The color palette is composed of soft blues, grays, and whites, evoking a sense of emotional weightlessness." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxtwudv46v9k-EuG7yTzetcRWPjyZO0U13WfL7oRssyOUtgLYywiVgttY91wSUM-jcvtIg5VYAPZzW4AZdFO4ZiS1d_OPaHlhHL9K5FNkTMcVJC2Z21v2VYwzwrFcO8SieguFN-GWHP-7oN19eemoyFpmQ8zR9dd0fSo5Itq_3YkfwOvs1Yf965hrfhYA4ZH24Je2AvskSxiCgmcawnNr7KIImQ-4kJAOfro_PChyVXdZaqiyE1BpyzXByXnYbYyeAX3lQ7TV__are')"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface group-hover:text-tertiary transition-colors">担心 (Worries)</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">释放压力，记录你的所有焦虑</p>
+</div>
+</div>
+<!-- Later Card -->
+<div class="group flex flex-col gap-sm p-md bg-white rounded-md soft-glow border border-transparent hover:border-tertiary/20 transition-all-300 hover:-translate-y-1">
+<div class="w-full aspect-square rounded-DEFAULT bg-surface-container flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="A photograph of a closed vintage envelope resting on an old wooden table, lit by soft afternoon sun. The image suggests things that are waiting for the right moment. The mood is nostalgic and calm, using warm earth tones and soft shadows to communicate the idea of 'later'." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD19Emhy-F9G2EqDvTvkAV_y96JRJprUnU-fYfUZ7ddBr9I_OQXSLPwnThfRzvPSfscGufQIYREZfb65dWa3OLVIhs_AjVMGazEycAwvtuDINwGphVUOWryc00cgXDGK_rE0MdDkMq8uhpSN31XGezD5Z-F7mRuLjrDf51kb_bUIUS4txoj-WpGB_5C1ua3bGPieaEOXnKdte95OWKNDbZv3SjGWBR-HvxjF4XrGaCCF2Um8p0NHAHLgX4kGtfjSyZxxYyEZ6vBB4cB')"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface group-hover:text-tertiary transition-colors">以后再说 (Later)</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">非紧急项目，暂存在归档处</p>
+</div>
+</div>
+<!-- Delete Card -->
+<div class="group flex flex-col gap-sm p-md bg-white rounded-md soft-glow border border-transparent hover:border-tertiary/20 transition-all-300 hover:-translate-y-1">
+<div class="w-full aspect-square rounded-DEFAULT bg-surface-container flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="A minimalist photograph of a crumpled piece of paper discarded in a clean, brightly lit space. The focus is on the texture of the paper and the surrounding white space, symbolizing the clarity achieved by letting go of unnecessary thoughts. Colors are strictly monochrome and beige." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5THnHkmSTkSvZFW3WIiw_YlBF3A719WTB_ngXhP7nb-G8lRwk_iG7hQ7GEkipm4WB6aGgO2rbbBYxiQPu3ISaHVuCVca7E2Tb9dVIvhzsGO6_oLO2dNXqn3Uca7xO8c7elzfeh9ifsHowiNk0WkWih_U3wyWYzbKTxVESwxsm2x1E9SIbj5kA7JdIXFd-Avlur-adeLrZzb6r01e5XQVKFFrJ2Jnnd39Jvs9UoQi5ES7mKO0aEfJmCVpzXhoHqB9UgW9KKEFcYdwb')"></div>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface group-hover:text-tertiary transition-colors">可以删除 (Can Delete)</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">可能是重复或已经过时的内容</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('.brain-dump-textarea');
+            
+            // Auto-focus the textarea for immediate flow
+            textarea.focus();
+
+            // Subtle animation on typing
+            textarea.addEventListener('input', () => {
+                // You could add logic here for character counting or auto-saving feedback
+            });
+
+            // Card hover effects are handled by Tailwind, but let's add a tactile feel
+            const cards = document.querySelectorAll('.group');
+            cards.forEach(card => {
+                card.addEventListener('mousedown', () => {
+                    card.style.transform = 'scale(0.98)';
+                });
+                card.addEventListener('mouseup', () => {
+                    card.style.transform = 'scale(1.01)';
+                });
+            });
+        });
+    </script>
+</body></html>

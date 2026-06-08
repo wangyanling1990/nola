@@ -1,0 +1,420 @@
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .soft-checkbox:checked + .checkbox-visual {
+            background-color: #5e5e5b;
+            border-color: #5e5e5b;
+        }
+        .soft-checkbox:checked + .checkbox-visual::after {
+            content: 'check';
+            font-family: 'Material Symbols Outlined';
+            color: white;
+            font-size: 16px;
+        }
+        .task-card-enter {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e2e0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#313030",
+                        "on-surface-variant": "#464742",
+                        "surface-container-low": "#f7f3f1",
+                        "on-surface": "#1c1b1b",
+                        "on-primary-fixed-variant": "#474744",
+                        "surface-tint": "#5e5e5b",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "primary-container": "#f9f7f2",
+                        "on-tertiary-container": "#557491",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#aacaea",
+                        "on-tertiary-fixed": "#001d32",
+                        "surface-dim": "#ddd9d8",
+                        "primary": "#5e5e5b",
+                        "on-background": "#1c1b1b",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e0",
+                        "surface": "#fcf8f7",
+                        "outline": "#777871",
+                        "inverse-on-surface": "#f4f0ef",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#5d5f5f",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "outline-variant": "#c7c7bf",
+                        "background": "#fcf8f7",
+                        "secondary-container": "#dfe0e0",
+                        "secondary-fixed": "#e2e2e2",
+                        "tertiary-fixed": "#cde5ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f1edec",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#616363",
+                        "on-primary-fixed": "#1b1c19",
+                        "tertiary": "#42617d",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "surface-container-high": "#ebe7e6",
+                        "primary-fixed": "#e4e2dd",
+                        "tertiary-container": "#f3f7ff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#71716d",
+                        "surface-variant": "#e5e2e0",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#294964",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-primary": "#c8c6c2",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fcf8f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "48px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "max-width": "1200px",
+                        "gutter": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface shadow-[0_8px_32px_rgba(51,65,85,0.04)] flex flex-col gap-base p-md h-full z-30">
+<div class="flex items-center gap-sm mb-lg px-xs">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="用户头像" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaP3VOV2fj93urO8GhQ3cxOgkG8k6MPzWO_tHyHmEIV43yTc6dF3mdCFP2tcFZGnLDgPp8vh6F4XyunMIucNCQEP-ZM7ZgABFnm72OmnRhsmdZPRL-x_8kLDhJsyIviOTIr93-C2iJCR9rNoCUQl9V60E0R3blugZ53aCj-Y1y6Ob_YfTA7cIJHKOt2qnZGPV_jkyaIEr2vR3xan6f7GMQLjNzInjmIuSHZC0rXEsRKTM1MQycOrOVtg0ma8WTPA737jQ7u9lcyKFF"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary leading-none">Kiri</h1>
+<p class="text-xs text-on-surface-variant">从最小的一步开始</p>
+</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-body-md">今日</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md">脑内清空</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-primary dark:text-inverse-primary font-bold bg-secondary-container dark:bg-secondary rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-body-md">任务</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md">日历</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shuffle">shuffle</span>
+<span class="font-body-md">随机启动</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-body-md">灵感拆解</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-body-md">固定提醒</span>
+</a>
+</nav>
+<div class="pt-md border-t border-outline-variant/30 mt-auto">
+<button class="w-full py-md px-lg bg-primary text-on-primary rounded-lg font-bold hover:scale-[1.01] transition-all duration-300 shadow-sm mb-base">
+                新建任务
+            </button>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:scale-[1.01] hover:bg-surface-container-high transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">设置</span>
+</a>
+</div>
+</aside>
+<!-- NavigationDrawer (Right Side) -->
+<aside class="h-screen w-72 fixed right-0 top-0 bg-surface-container-lowest dark:bg-surface-container-low shadow-sm flex flex-col p-lg gap-lg z-30">
+<div class="space-y-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-tertiary">温馨提醒</h3>
+<span class="material-symbols-outlined text-tertiary" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<p class="text-on-surface-variant italic font-body-md">今日鼓励：慢下来，深呼吸</p>
+</div>
+<div class="space-y-md">
+<div class="group cursor-pointer flex items-center gap-md p-md bg-tertiary-container rounded-lg transition-all scale-101 duration-300">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="water_drop" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<div>
+<p class="font-bold text-tertiary">饮水提醒</p>
+<p class="text-xs text-on-surface-variant">还有 2 杯达成目标</p>
+</div>
+</div>
+<div class="group cursor-pointer flex items-center gap-md p-md hover:bg-surface-container transition-all duration-300 rounded-lg">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface">用药助手</p>
+<p class="text-xs text-on-surface-variant">下午 4:00 维他命</p>
+</div>
+</div>
+<div class="group cursor-pointer flex items-center gap-md p-md hover:bg-surface-container transition-all duration-300 rounded-lg">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface">眼部休息</p>
+<p class="text-xs text-on-surface-variant">15分钟后开启</p>
+</div>
+</div>
+</div>
+<div class="mt-auto bg-primary-container p-md rounded-lg border border-outline-variant/10">
+<h4 class="font-bold text-primary mb-xs">专注提示</h4>
+<p class="text-xs text-on-primary-container leading-relaxed">如果感到任务过载，试着从“拆成第一步”开始，仅需2分钟。</p>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 mr-72 min-h-screen relative">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-xl py-md h-16 bg-transparent z-20">
+<h2 class="font-headline-md text-headline-md font-bold text-primary">安静时光</h2>
+<div class="flex items-center gap-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="bg-surface-container-high border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary/20 w-64 transition-all duration-300 font-label-md" placeholder="搜索任务..." type="text"/>
+</div>
+<div class="flex items-center gap-base">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="max-w-[800px] mx-auto px-md py-lg overflow-y-auto max-h-[calc(100vh-64px)]">
+<!-- Filter Section -->
+<section class="flex items-center justify-between mb-xl">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-xs">待办清单</h2>
+<p class="text-on-surface-variant font-body-lg">深呼吸，一次只关注一件事。</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-2 bg-surface-container-lowest rounded-full text-on-surface-variant font-label-md hover:bg-surface-container-high transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span> 按精力排序
+                    </button>
+<button class="px-md py-2 bg-surface-container-lowest rounded-full text-on-surface-variant font-label-md hover:bg-surface-container-high transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 按时长排序
+                    </button>
+</div>
+</section>
+<!-- Task List Layout (Bento-ish Grid or Minimalist List) -->
+<div class="space-y-md pb-xl">
+<!-- Task Card 1: High Priority/Energy -->
+<article class="task-card-enter bg-surface-container-lowest p-md rounded-lg shadow-[0_8px_32px_rgba(51,65,85,0.04)] hover:scale-[1.01] transition-all duration-300 group">
+<div class="flex items-start gap-md">
+<label class="relative flex items-center justify-center cursor-pointer mt-1">
+<input class="soft-checkbox absolute opacity-0 w-6 h-6 z-10 cursor-pointer" type="checkbox"/>
+<div class="checkbox-visual w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center transition-all"></div>
+</label>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors">撰写季度汇报草稿</h3>
+<div class="flex gap-xs">
+<span class="px-sm py-1 bg-error-container text-on-error-container rounded-full text-xs font-bold">高精力</span>
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full text-xs">45 min</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-md">
+<span class="text-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="circle" style="font-variation-settings: 'FILL' 1;">circle</span> 待处理
+                                </span>
+<button class="px-md py-2 bg-primary-container text-on-primary-container rounded-full text-sm font-bold hover:bg-secondary-container transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined text-base" data-icon="schema">schema</span> 拆成第一步
+                                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- Task Card 2: Medium -->
+<article class="task-card-enter bg-surface-container-lowest p-md rounded-lg shadow-[0_8px_32px_rgba(51,65,85,0.04)] hover:scale-[1.01] transition-all duration-300 group" style="animation-delay: 0.1s;">
+<div class="flex items-start gap-md">
+<label class="relative flex items-center justify-center cursor-pointer mt-1">
+<input class="soft-checkbox absolute opacity-0 w-6 h-6 z-10 cursor-pointer" type="checkbox"/>
+<div class="checkbox-visual w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center transition-all"></div>
+</label>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors">整理会议记录并分发</h3>
+<div class="flex gap-xs">
+<span class="px-sm py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold">中等精力</span>
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full text-xs">20 min</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-md">
+<span class="text-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="circle" style="font-variation-settings: 'FILL' 1;">circle</span> 待处理
+                                </span>
+<button class="px-md py-2 bg-primary-container text-on-primary-container rounded-full text-sm font-bold hover:bg-secondary-container transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined text-base" data-icon="schema">schema</span> 拆成第一步
+                                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- Task Card 3: Low -->
+<article class="task-card-enter bg-surface-container-lowest p-md rounded-lg shadow-[0_8px_32px_rgba(51,65,85,0.04)] hover:scale-[1.01] transition-all duration-300 group" style="animation-delay: 0.2s;">
+<div class="flex items-start gap-md">
+<label class="relative flex items-center justify-center cursor-pointer mt-1">
+<input class="soft-checkbox absolute opacity-0 w-6 h-6 z-10 cursor-pointer" type="checkbox"/>
+<div class="checkbox-visual w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center transition-all"></div>
+</label>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors">回复团队 Slack 消息</h3>
+<div class="flex gap-xs">
+<span class="px-sm py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold">低精力</span>
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full text-xs">10 min</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-md">
+<span class="text-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="circle" style="font-variation-settings: 'FILL' 1;">circle</span> 待处理
+                                </span>
+<button class="px-md py-2 bg-primary-container text-on-primary-container rounded-full text-sm font-bold hover:bg-secondary-container transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined text-base" data-icon="schema">schema</span> 拆成第一步
+                                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- Asymmetric Bento-style Decoration -->
+<div class="grid grid-cols-2 gap-md mt-lg">
+<div class="bg-[#F1F5F9] p-lg rounded-lg flex flex-col justify-between min-h-[160px]">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="self_improvement">self_improvement</span>
+<p class="font-body-md text-on-surface-variant">专注模式：已开启白噪音 - 森林细雨</p>
+</div>
+<div class="bg-primary-container p-lg rounded-lg flex flex-col justify-between min-h-[160px]">
+<div class="flex justify-between">
+<h4 class="font-bold text-primary">今日进度</h4>
+<span class="text-primary font-bold">65%</span>
+</div>
+<div class="h-2 bg-white rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%] rounded-full transition-all duration-1000"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Modal Overlay (Micro-interaction Placeholder) -->
+<div class="fixed inset-0 bg-background/80 backdrop-blur-md z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-500" id="focus-overlay">
+<div class="bg-white p-xl rounded-lg max-w-md w-full shadow-lg text-center transform scale-95 transition-transform duration-500" id="focus-card">
+<span class="material-symbols-outlined text-6xl text-primary mb-md" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<h2 class="font-headline-lg text-headline-lg mb-sm">太棒了！</h2>
+<p class="text-on-surface-variant font-body-lg mb-lg">你已经完成了最艰难的第一步。休息一分钟，或者继续保持这个节奏？</p>
+<div class="flex flex-col gap-sm">
+<button class="w-full py-md bg-primary text-on-primary rounded-lg font-bold" onclick="closeFocus()">继续专注</button>
+<button class="w-full py-md bg-surface-container text-on-surface-variant rounded-lg font-bold" onclick="closeFocus()">小小休息一下</button>
+</div>
+</div>
+</div>
+<script>
+        function showFocusAnimation() {
+            const overlay = document.getElementById('focus-overlay');
+            const card = document.getElementById('focus-card');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.add('opacity-100');
+                card.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeFocus() {
+            const overlay = document.getElementById('focus-overlay');
+            const card = document.getElementById('focus-card');
+            overlay.classList.remove('opacity-100');
+            card.classList.remove('scale-100');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 500);
+        }
+
+        // Attach to checkboxes for demo
+        document.querySelectorAll('.soft-checkbox').forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    const card = e.target.closest('article');
+                    card.style.opacity = '0.5';
+                    card.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        showFocusAnimation();
+                    }, 500);
+                }
+            });
+        });
+
+        // "Split Task" buttons interaction
+        document.querySelectorAll('button:contains("拆成第一步")').forEach(btn => {
+           btn.addEventListener('click', (e) => {
+               e.stopPropagation();
+               alert("正在分析任务，为您生成2分钟内可完成的第一步...");
+           });
+        });
+    </script>
+</body></html>

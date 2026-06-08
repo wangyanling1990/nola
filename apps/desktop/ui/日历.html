@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #fcf8f7; /* surface color from theme */
+            color: #1c1b1b; /* on-surface from theme */
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+        .glass-card {
+            background: #ffffff;
+            box-shadow: 0 8px 32px rgba(51, 65, 85, 0.04);
+            transition: all 0.3s ease-out;
+        }
+        .glass-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 48px rgba(51, 65, 85, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #5e5e5b;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#294964",
+                        "outline-variant": "#c7c7bf",
+                        "inverse-surface": "#313030",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e5e2e0",
+                        "on-secondary-container": "#616363",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "tertiary-fixed-dim": "#aacaea",
+                        "tertiary-fixed": "#cde5ff",
+                        "inverse-primary": "#c8c6c2",
+                        "on-secondary": "#ffffff",
+                        "primary": "#5e5e5b",
+                        "surface-tint": "#5e5e5b",
+                        "on-tertiary-container": "#557491",
+                        "on-surface-variant": "#464742",
+                        "surface-container": "#f1edec",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e5e2e0",
+                        "tertiary": "#42617d",
+                        "tertiary-container": "#f3f7ff",
+                        "on-primary-fixed": "#1b1c19",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface-dim": "#ddd9d8",
+                        "inverse-on-surface": "#f4f0ef",
+                        "error": "#ba1a1a",
+                        "surface": "#fcf8f7",
+                        "on-tertiary-fixed": "#001d32",
+                        "on-primary-container": "#71716d",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#ebe7e6",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#fcf8f7",
+                        "on-primary-fixed-variant": "#474744",
+                        "secondary": "#5d5f5f",
+                        "surface-container-low": "#f7f3f1",
+                        "primary-container": "#f9f7f2",
+                        "background": "#fcf8f7",
+                        "on-surface": "#1c1b1b",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "primary-fixed": "#e4e2dd",
+                        "secondary-container": "#dfe0e0",
+                        "outline": "#777871"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xl": "64px",
+                        "max-width": "1200px",
+                        "margin": "48px",
+                        "gutter": "32px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Fixed SideNavBar (Left) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface shadow-[0_8px_32px_rgba(51,65,85,0.04)] flex flex-col gap-base p-md z-50">
+<div class="flex items-center gap-sm mb-lg">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary leading-tight">Kiri</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">从最小的一步开始</p>
+</div>
+</div>
+<nav class="flex flex-col gap-xs flex-grow">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-body-md text-body-md">今日</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md text-body-md">脑内清空</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-body-md text-body-md">任务</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 text-primary dark:text-inverse-primary font-bold bg-secondary-container dark:bg-secondary rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md text-body-md">日历</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="shuffle">shuffle</span>
+<span class="font-body-md text-body-md">随机启动</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-body-md text-body-md">灵感拆解</span>
+</a>
+<a class="flex items-center gap-sm p-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-body-md text-body-md">固定提醒</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-outline-variant/30">
+<button class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary py-sm rounded-lg hover:scale-[1.01] transition-transform shadow-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-md text-label-md">新建任务</span>
+</button>
+<a class="flex items-center gap-sm p-sm mt-sm transition-all duration-300 hover:scale-[1.01] hover:bg-surface-container-high rounded-lg text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">设置</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 mr-72 min-h-screen px-xl py-lg">
+<!-- Header -->
+<header class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-xs">日历中心</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">深呼吸，掌控你的节奏。</p>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex bg-surface-container rounded-full p-xs">
+<button class="p-sm hover:bg-surface rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-md py-sm font-label-md text-label-md text-on-surface">2024年10月</button>
+<button class="p-sm hover:bg-surface rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<button class="px-lg py-sm bg-secondary-container text-on-secondary-container rounded-full font-label-md text-label-md hover:scale-[1.01] transition-all">今天</button>
+</div>
+</header>
+<!-- Calendar Grid -->
+<section class="max-w-max-width mx-auto">
+<!-- Day Labels -->
+<div class="calendar-grid mb-sm " >
+<div class="text-center font-label-md text-label-md text-outline py-xs">周一</div>
+<div class="text-center font-label-md text-label-md text-outline py-xs">周二</div>
+<div class="text-center font-label-md text-label-md text-outline py-xs">周三</div>
+<div class="text-center font-label-md text-label-md text-outline py-xs">周四</div>
+<div class="text-center font-label-md text-label-md text-outline py-xs">周五</div>
+<div class="text-center font-label-md text-label-md text-outline py-xs">周六</div>
+<div class="text-center font-label-md text-label-md text-outline py-xs">周日</div>
+</div>
+<div class="calendar-grid">
+<!-- Row 1 -->
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between opacity-40">
+<span class="font-body-md text-body-md">30</span>
+</div>
+<!-- Active Dates Example -->
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-body-md">1</span>
+</div>
+<div class="flex gap-xs">
+<div class="active-dot"></div>
+</div>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between border-2 border-primary-container">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-body-md">2</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="water_drop">water_drop</span>
+</div>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">3</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">4</span>
+<div class="flex gap-xs">
+<div class="active-dot"></div>
+<div class="active-dot"></div>
+</div>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">5</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">6</span>
+</div>
+<!-- Row 2 -->
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">7</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">8</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between ring-2 ring-primary">
+<div class="flex justify-between items-start">
+<span class="font-headline-md text-headline-md font-bold text-primary">9</span>
+<span class="px-sm py-1 bg-primary text-on-primary rounded-full text-[10px]">今天</span>
+</div>
+<div class="flex gap-xs">
+<div class="active-dot bg-primary"></div>
+<div class="active-dot bg-primary"></div>
+<div class="active-dot bg-primary"></div>
+</div>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">10</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">11</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">12</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">13</span>
+</div>
+<!-- Row 3 -->
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">14</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">15</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">16</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">17</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">18</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">19</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">20</span>
+</div>
+<!-- Row 4 -->
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">21</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">22</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">23</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">24</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between">
+<span class="font-body-md text-body-md">25</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">26</span>
+</div>
+<div class="glass-card aspect-square rounded-lg p-md flex flex-col justify-between bg-surface-container-low">
+<span class="font-body-md text-body-md">27</span>
+</div>
+</div>
+</section>
+<!-- Focus Promotion / Activity Detail -->
+<section class="mt-xl grid grid-cols-2 gap-lg">
+<div class="glass-card p-lg rounded-lg flex items-center gap-lg">
+<div class="w-24 h-24 rounded-full border-4 border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="timer">timer</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-xs">今日专注：2.5小时</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">你已经完成了 80% 的计划。做得很好！</p>
+</div>
+</div>
+<div class="glass-card p-lg rounded-lg bg-tertiary-container">
+<div class="flex items-center gap-sm mb-sm text-tertiary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md">今日灵感</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-tertiary-fixed-variant italic">"不要试图管理时间，要管理你的能量。"</p>
+</div>
+</section>
+</main>
+<!-- Right Sidebar (Warm Reminders) -->
+<aside class="h-screen w-72 fixed right-0 top-0 bg-surface-container-lowest dark:bg-surface-container-low flex flex-col p-lg gap-lg shadow-sm z-50 overflow-y-auto">
+<header>
+<div class="flex items-center gap-sm mb-xs">
+<img alt="Care" class="w-12 h-12 rounded-full border-2 border-tertiary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASWt6sLDyOvbhS4TqqnA_A6B3527rLkSV0ZkfdZ_pQ1glTXucMJN7ZXhEuQisZLXct9JDNd7bq7CN_BEswHXPFyq97dC88WTuOmjIWCv3nhIZAdQMiXRkv-fa4m8L4csO1HtqyyIeNFeDLUYmaoxhM0pOaJ5ZDihGtQnVIn_9hbKe6U8g2P7WqM4kK9qk44o9XztDXvAJbL_X2jVv9WcPWaK3Dx67tzzyAV79mO8qbLEdsoo2elvixV4cfeS3J0qGo7DZB4m1ipNf5"/>
+<h2 class="font-headline-md text-headline-md text-tertiary">温馨提醒</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">今日鼓励：慢下来，深呼吸</p>
+</header>
+<section class="flex flex-col gap-md">
+<!-- Drinking Water -->
+<div class="flex items-center gap-md p-md bg-tertiary-container rounded-lg transition-all scale-101 duration-300">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md font-bold text-tertiary">饮水提醒</h4>
+<p class="text-xs text-on-tertiary-container">距离下次饮水：15分钟</p>
+</div>
+<button class="w-8 h-8 rounded-full border border-tertiary flex items-center justify-center text-tertiary hover:bg-tertiary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</button>
+</div>
+<!-- Medication -->
+<div class="flex items-center gap-md p-md hover:bg-surface-container transition-all rounded-lg">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md font-bold text-on-surface-variant">用药助手</h4>
+<p class="text-xs text-on-surface-variant">下午 2:00 · 维生素B</p>
+</div>
+</div>
+<!-- Eye Rest -->
+<div class="flex items-center gap-md p-md hover:bg-surface-container transition-all rounded-lg">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md font-bold text-on-surface-variant">眼部休息</h4>
+<p class="text-xs text-on-surface-variant">跟随 20-20-20 原则</p>
+</div>
+</div>
+</section>
+<!-- Mini Analytics -->
+<section class="mt-auto">
+<div class="p-lg bg-surface-container-high rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-label-md text-label-md text-on-surface mb-sm">今日状态</h4>
+<div class="w-full bg-white/50 h-2 rounded-full mb-xs">
+<div class="bg-tertiary h-full rounded-full" style="width: 65%;"></div>
+</div>
+<span class="text-xs text-on-surface-variant">情绪平稳度：良好</span>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="eco">eco</span>
+</div>
+</div>
+</section>
+</aside>
+<!-- Background Atmospheric Effect -->
+<div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-container/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-tertiary-container/20 rounded-full blur-[120px]"></div>
+</div>
+<script>
+        // Micro-interaction for clicking dates
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Subtle feedback animation
+                this.classList.add('ring-2', 'ring-primary-container');
+                setTimeout(() => {
+                    this.classList.remove('ring-2', 'ring-primary-container');
+                }, 400);
+            });
+        });
+    </script>
+</body></html>

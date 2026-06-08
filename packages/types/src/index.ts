@@ -36,10 +36,15 @@ export interface NolaInboxItem extends SyncReadyFields {
 
 export interface NolaReminder {
   id: string;
-  targetType: "task" | "inbox_item";
+  title?: string;
+  message?: string;
+  targetType: "task" | "inbox_item" | "routine";
   targetId: string;
   remindAt: string;
   repeatRule?: string | null;
+  repeatLabel?: string | null;
+  timeOfDay?: string | null;
+  enabled?: boolean;
   deliveryStatus: "pending" | "delivered" | "dismissed";
   createdAt: string;
   updatedAt: string;
@@ -49,4 +54,10 @@ export interface RandomStartSuggestion {
   task: NolaTask;
   nextAction: string;
   reason: string;
+}
+
+export interface InspirationStep {
+  title: string;
+  nextAction: string;
+  energyLevel: NolaEnergyLevel;
 }

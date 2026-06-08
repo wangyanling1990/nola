@@ -48,10 +48,15 @@ export const reminderTable: TableDefinition = {
   name: "reminders",
   columns: [
     "id",
+    "title",
+    "message",
     "target_type",
     "target_id",
     "remind_at",
+    "time_of_day",
     "repeat_rule",
+    "repeat_label",
+    "enabled",
     "delivery_status",
     "created_at",
     "updated_at"
